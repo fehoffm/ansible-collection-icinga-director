@@ -57,6 +57,22 @@ options:
       - Please note that order matters when importing properties from multiple templates - last one wins.
     type: list
     elements: str
+  include_period:
+    description:
+      - Include other time periods into this.
+    type: list
+    elements: str
+  exclude_period:
+    description:
+      - Exclude other time periods from this.
+    type: list
+    elements: str
+  prefer_includes:
+    description:
+      - Whether to prefer timeperiods includes or excludes. Default to true.
+    type: bool
+    default: true
+    choices: [True, False]
   ranges:
     description:
       - A dict of days and timeperiods.
@@ -105,8 +121,13 @@ def main():
         object_name=dict(required=True, aliases=["name"]),
         display_name=dict(required=False),
         imports=dict(type="list", elements="str", default=[], required=False),
-        excludes=dict(type="list", elements="str", default=[], required=False),
-        includes=dict(type="list", elements="str", default=[], required=False),
+        prefer_includes=dict(type="bool", default=True, choices=[True, False]),
+        exclude_period=dict(
+            type="list", elements="str", default=[], required=False
+        ),
+        include_period=dict(
+            type="list", elements="str", default=[], required=False
+        ),
         ranges=dict(type="dict", required=False),
     )
 
@@ -120,8 +141,9 @@ def main():
         "object_type": "object",
         "display_name": module.params["display_name"],
         "imports": module.params["imports"],
-        "excludes": module.params["excludes"]
-        "includes": module.params["includes"]
+        "prefer_includes": module.params["prefer_includes"],
+        "excludes": module.params["exclude_period"]
+        "includes": module.params["include_period"]
         "ranges": module.params["ranges"],
     }
 
