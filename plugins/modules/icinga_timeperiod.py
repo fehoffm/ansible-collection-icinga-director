@@ -105,6 +105,8 @@ def main():
         object_name=dict(required=True, aliases=["name"]),
         display_name=dict(required=False),
         imports=dict(type="list", elements="str", default=[], required=False),
+        excludes=dict(type="list", elements="str", default=[], required=False),
+        includes=dict(type="list", elements="str", default=[], required=False),
         ranges=dict(type="dict", required=False),
     )
 
@@ -118,6 +120,8 @@ def main():
         "object_type": "object",
         "display_name": module.params["display_name"],
         "imports": module.params["imports"],
+        "excludes": module.params["excludes"]
+        "includes": module.params["includes"]
         "ranges": module.params["ranges"],
     }
 
