@@ -15,8 +15,9 @@
     object_name: "{{ timeperiod.1 }}"
     display_name: "{{ timeperiod.0.display_name | default(omit) }}"
     imports: "{{ timeperiod.0.imports | default(omit) }}"
-    excludes: "{{ timeperiod.0.exludes | default(omit) }}"
-    includes: "{{ timeperiod.0.includes | default(omit) }}"
+    prefer_includes: "{{ timeperiod.0.prefer_includes | default(omit) }}"
+    excludes: "{{ timeperiod.0.exlude_period | default(omit) }}"
+    includes: "{{ timeperiod.0.include_period | default(omit) }}"
     ranges: "{{ timeperiod.0.ranges | default(omit) }}"
   loop: "{{ icinga_timeperiods|subelements('timeperiod_object') }}"
   loop_control:
